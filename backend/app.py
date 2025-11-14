@@ -1,6 +1,7 @@
 import os
 from typing import Optional, Dict, Tuple, List
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from dotenv import load_dotenv
 import requests
@@ -10,6 +11,21 @@ from twilio.rest import Client
 load_dotenv()
 
 app = FastAPI(title="Simple ThingSpeak -> WhatsApp Notifier")
+
+# Configurar CORS (ALLOWED_ORIGINS puede ser "*" o una lista separada por comas)
+_origins_env = os.getenv("ALLOWED_ORIGINS", "*")
+if _origins_env.strip() == "*":
+    _allow_origins = ["*"]
+else:
+    _allow_origins = [o.strip() for o in _origins_env.split(",") if o.strip()]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=_allow_origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Umbrales por defecto (mismos del sketch Arduino)
 class Settings(BaseModel):
