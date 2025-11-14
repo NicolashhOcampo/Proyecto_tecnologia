@@ -12,7 +12,6 @@ load_dotenv()
 
 app = FastAPI(title="Simple ThingSpeak -> WhatsApp Notifier")
 
-<<<<<<< HEAD
 # Configurar CORS para permitir peticiones desde el frontend
 app.add_middleware(
     CORSMiddleware,
@@ -20,21 +19,6 @@ app.add_middleware(
     allow_credentials=False,
     allow_methods=["*"],  # Permitir todos los métodos
     allow_headers=["*"],  # Permitir todos los headers
-=======
-# Configurar CORS (ALLOWED_ORIGINS puede ser "*" o una lista separada por comas)
-_origins_env = os.getenv("ALLOWED_ORIGINS", "*")
-if _origins_env.strip() == "*":
-    _allow_origins = ["*"]
-else:
-    _allow_origins = [o.strip() for o in _origins_env.split(",") if o.strip()]
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=_allow_origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
->>>>>>> 84584baad62d27bf8557925bc3089561ed385ae7
 )
 
 # Umbrales por defecto (mismos del sketch Arduino)
