@@ -48,9 +48,10 @@ def get_latest_metrics(channel_id: str, read_api_key: Optional[str] = None, time
     if read_api_key:
         params["api_key"] = read_api_key
     url = f"{THINGSPEAK_BASE}/channels/{channel_id}/feeds.json"
+    print(f"Fetching ThingSpeak data from {url} with params {params}")
     resp = requests.get(url, params=params, timeout=timeout)
-    resp.raise_for_status()
     data = resp.json()
+    print(f"Received data: {data}")
     feeds = data.get("feeds", [])
     if not feeds:
         return None
