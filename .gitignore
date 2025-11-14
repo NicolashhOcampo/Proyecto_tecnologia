@@ -1,0 +1,55 @@
+# Byte-compiled / caching
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+backend/.venv/
+frontend/node_modules/
+
+# Environment / secret files
+.env
+.env.* 
+*.env
+
+# Python packaging / build
+build/
+dist/
+*.egg-info/
+pip-selfcheck.json
+
+# Logs and coverage
+*.log
+.coverage
+htmlcov/
+
+# Editor / OS files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+.DS_Store
+Thumbs.db
+
+# Frontend build artifacts
+frontend/build/
+dist/
+npm-debug.log*
+yarn-error.log*
+
+# Misc
+.cache/
+.tox/
+.nox/
+
+# Thingspeak/twilio keys or any accidental credentials (just in case)
+*.key
+*.pem
+```// filepath: c:\Users\nicoo\OneDrive\Escritorio\Nico\Tecnologia Automatizacion\Proyecto_tec\.gitignore
