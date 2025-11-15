@@ -7,8 +7,8 @@ export function NotificationPanel() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<CheckNotifyResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [customPhone, setCustomPhone] = useState('');
-  const [customMessage, setCustomMessage] = useState('');
+  // const [customPhone, setCustomPhone] = useState('');
+  // const [customMessage, setCustomMessage] = useState('');
 
   const handleCheckAndNotify = async () => {
     setLoading(true);
@@ -24,7 +24,7 @@ export function NotificationPanel() {
     }
   };
 
-  const handleCustomNotify = async (e: React.FormEvent) => {
+  /* const handleCustomNotify = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!customPhone || !customMessage) {
       setError('Por favor completa el teléfono y mensaje');
@@ -42,7 +42,7 @@ export function NotificationPanel() {
     } finally {
       setLoading(false);
     }
-  };
+  }; */
 
   return (
     <div className="notification-panel">
@@ -60,7 +60,7 @@ export function NotificationPanel() {
         </button>
       </div>
 
-      <div className="notification-section">
+      {/* <div className="notification-section">
         <h3>Notificación Personalizada</h3>
         <form onSubmit={handleCustomNotify}>
           <div className="form-group">
@@ -89,7 +89,7 @@ export function NotificationPanel() {
             {loading ? '⏳ Enviando...' : '📤 Enviar Notificación'}
           </button>
         </form>
-      </div>
+      </div> */}
 
       {error && <div className="error-message">❌ {error}</div>}
 
