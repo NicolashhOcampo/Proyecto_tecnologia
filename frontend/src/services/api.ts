@@ -3,6 +3,8 @@ import type { Metrics, NotifyPayload, WritePayload, CheckNotifyResponse } from '
 const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL as string | undefined) || 'http://localhost:8000';
 
 export const api = {
+  baseURL: API_BASE_URL,
+  
   async getMetrics(): Promise<Metrics> {
     const response = await fetch(`${API_BASE_URL}/metrics`);
     if (!response.ok) {

@@ -3,6 +3,7 @@ import { NotificationPanel } from './components/NotificationPanel'
 import { DataSender } from './components/DataSender'
 import { MetricsCard } from './components/MetricsCard'
 import { Welcome } from './components/Welcome'
+import { Stabilizer } from './components/Stabilizer'
 import logo from './assets/logo.png'
 import './App.css'
 
@@ -41,6 +42,10 @@ function App() {
         <div className="grid-layout">
           <div className="grid-full">
             <MetricsCard />
+          </div>
+          
+          <div className="grid-full">
+            <Stabilizer />
           </div>
           
           <div className="grid-half">
