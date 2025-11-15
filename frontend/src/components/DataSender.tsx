@@ -11,7 +11,7 @@ export function DataSender() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     const temp = parseFloat(temperature);
     const hum = parseFloat(humidity);
 
@@ -30,22 +30,11 @@ export function DataSender() {
     setResult(null);
 
     try {
-      const response = await api.sendToThingSpeak({
+      await api.sendToThingSpeak({
         temperature: temp,
         humidity: hum,
       });
-      
-      // Formatear la respuesta JSON para mejor legibilidad
-      let formattedResponse = response.thingspeak_response;
-      try {
-        const parsed = JSON.parse(response.thingspeak_response);
-        formattedResponse = JSON.stringify(parsed, null, 2);
-      } catch {
-        // Si no es JSON válido, usar la respuesta tal cual
-        formattedResponse = response.thingspeak_response;
-      }
-      
-      setResult(`✅ Datos enviados correctamente\n\nRespuesta de ThingSpeak:\n${formattedResponse}`);
+      setResult(`✅ Datos enviados correctamente. Respuesta: ${response.thingspeak_response}`);
       setTemperature('');
       setHumidity('');
     } catch (err) {

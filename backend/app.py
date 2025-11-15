@@ -1,12 +1,13 @@
 import os
 from typing import Optional, Dict, Tuple, List
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from dotenv import load_dotenv
 import requests
 from requests.auth import HTTPBasicAuth
 from twilio.rest import Client
+from twilio.twiml.messaging_response import MessagingResponse, Message
 
 load_dotenv()
 
@@ -143,7 +144,7 @@ def check_and_notify():
             res = send_whatsapp(phone, text)
         except Exception as e:
             raise HTTPException(status_code=500, detail=f"Error enviando WhatsApp: {e}")
-        return {"notified": True, "twilio_sid": res}
+        return {"notified": True, "messages": msgs, "metrics": data, "twilio_sid": res}
     return {"notified": False, "messages": msgs, "metrics": data}
 
 @app.post("/notify", response_model=dict)
@@ -170,9 +171,51 @@ def send_to_thingspeak(payload: WritePayload):
         "field2": payload.humidity      # field2 = humedad
     }
     try:
-        resp = requests.post(url, data=data, timeout=10)
+        resp = requests.get(url, params=data, timeout=10)
         resp.raise_for_status()
+        if(resp.text == "0"):
+            raise HTTPException(status_code=500, detail="ThingSpeak no guardó los datos (entry_id=0)")
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error enviando a ThingSpeak: {e}")
     # ThingSpeak responde con el entry_id (texto). Devolvemos la respuesta cruda.
     return {"status": "ok", "thingspeak_response": resp.text}
+
+@app.post("/whatsapp")
+async def whatsapp_webhook(request: Request):
+    form = await request.form()
+
+    from_number = form.get("From")
+    body = form.get("Body", "").strip().lower()
+
+    print("Mensaje entrante:", body, "de", from_number)
+
+    # Respuesta por defecto
+    response_msg = "Comando no reconocido. Enviá STATUS para ver métricas."
+    twiml = MessagingResponse()
+    if body == "status":
+        channel_id = os.getenv("THINGSPEAK_CHANNEL_ID")
+        if not channel_id:
+            response_msg = "THINGSPEAK_CHANNEL_ID no está configurado."
+        else:
+            data = get_latest_metrics(
+                channel_id,
+                os.getenv("THINGSPEAK_READ_API_KEY", None)
+            )
+            if not data:
+                response_msg = "No hay datos en ThingSpeak."
+            else:
+                response_msg = (
+                    f"Métricas actuales:\n"
+                    f"Humedad: {data['humidity']}%\n"
+                    f"Temperatura: {data['temperature']}C\n"
+                    f"{data.get('created_at')}"
+                )
+
+    # Responder al usuario usando tu función
+    try:
+        twiml.message(response_msg)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error enviando WhatsApp: {e}")
+
+
+    return Response(content=str(twiml), media_type="application/xml")
