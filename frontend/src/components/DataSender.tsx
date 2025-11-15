@@ -34,7 +34,18 @@ export function DataSender() {
         temperature: temp,
         humidity: hum,
       });
-      setResult(`✅ Datos enviados correctamente. Respuesta: ${response.thingspeak_response}`);
+      
+      // Formatear la respuesta JSON para mejor legibilidad
+      let formattedResponse = response.thingspeak_response;
+      try {
+        const parsed = JSON.parse(response.thingspeak_response);
+        formattedResponse = JSON.stringify(parsed, null, 2);
+      } catch {
+        // Si no es JSON válido, usar la respuesta tal cual
+        formattedResponse = response.thingspeak_response;
+      }
+      
+      setResult(`✅ Datos enviados correctamente\n\nRespuesta de ThingSpeak:\n${formattedResponse}`);
       setTemperature('');
       setHumidity('');
     } catch (err) {
