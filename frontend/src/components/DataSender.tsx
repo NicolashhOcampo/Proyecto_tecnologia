@@ -11,7 +11,7 @@ export function DataSender() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     const temp = parseFloat(temperature);
     const hum = parseFloat(humidity);
 
@@ -30,11 +30,11 @@ export function DataSender() {
     setResult(null);
 
     try {
-      const response = await api.sendToThingSpeak({
+      await api.sendToThingSpeak({
         temperature: temp,
         humidity: hum,
       });
-      setResult(`✅ Datos enviados correctamente. Respuesta: ${response.thingspeak_response}`);
+      setResult(`✅ Datos enviados correctamente.`);
       setTemperature('');
       setHumidity('');
     } catch (err) {
