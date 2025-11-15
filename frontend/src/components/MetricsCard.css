@@ -66,13 +66,13 @@
 }
 
 .toggle-charts-button {
-  padding: 0.625rem 1.25rem;
+  padding: 0.75rem 1.5rem;
   border: none;
   border-radius: var(--radius-md);
   background: linear-gradient(135deg, #10b981 0%, #059669 100%);
   color: var(--text-white);
   cursor: pointer;
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
   font-weight: 600;
   transition: all var(--transition-base);
   box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
@@ -213,6 +213,18 @@
   animation: iconFloat 3s ease-in-out infinite;
   position: relative;
   z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+}
+
+.humidity-icon {
+  color: #3b82f6;
+}
+
+.temperature-icon {
+  color: #ef4444;
 }
 
 @keyframes iconFloat {

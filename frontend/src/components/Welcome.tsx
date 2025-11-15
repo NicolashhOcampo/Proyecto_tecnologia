@@ -1,4 +1,8 @@
 import { useState } from 'react';
+import { TbChartLine } from 'react-icons/tb';
+import { IoNotificationsOutline } from 'react-icons/io5';
+import { RiWhatsappLine } from 'react-icons/ri';
+import { HiOutlineCloud } from 'react-icons/hi';
 import './Welcome.css';
 
 interface WelcomeProps {
@@ -79,19 +83,19 @@ export function Welcome({ onStart }: WelcomeProps) {
 
         <div className="features-grid">
           <div className="feature-item">
-            <div className="feature-icon">📊</div>
+            <div className="feature-icon"><TbChartLine /></div>
             <span>Métricas en Tiempo Real</span>
           </div>
           <div className="feature-item">
-            <div className="feature-icon">🔔</div>
+            <div className="feature-icon"><IoNotificationsOutline /></div>
             <span>Alertas Inteligentes</span>
           </div>
           <div className="feature-item">
-            <div className="feature-icon">📱</div>
+            <div className="feature-icon"><RiWhatsappLine /></div>
             <span>Notificaciones WhatsApp</span>
           </div>
           <div className="feature-item">
-            <div className="feature-icon">☁️</div>
+            <div className="feature-icon"><HiOutlineCloud /></div>
             <span>Integración ThingSpeak</span>
           </div>
         </div>

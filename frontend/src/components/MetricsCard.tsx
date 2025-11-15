@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { IoWaterOutline } from 'react-icons/io5';
+import { TbTemperature } from 'react-icons/tb';
 import type { Metrics } from '../types';
 import { api } from '../services/api';
 import './MetricsCard.css';
@@ -49,26 +51,26 @@ export function MetricsCard() {
   return (
     <div className="metrics-card">
       <div className="metrics-header">
-        <h2>📊 Métricas Actuales</h2>
+        <h2>Métricas Actuales</h2>
         <div className="header-controls">
           <button 
             onClick={() => setShowCharts(!showCharts)} 
             className="toggle-charts-button"
           >
-            {showCharts ? '📈 Ocultar Gráficos' : '📊 Mostrar Gráficos'}
+            {showCharts ? 'Ocultar Gráficos' : 'Mostrar Gráficos'}
           </button>
           <button onClick={fetchMetrics} disabled={loading} className="refresh-button">
-            {loading ? '⏳ Actualizando...' : '🔄 Actualizar Datos'}
+            {loading ? 'Actualizando...' : 'Actualizar Datos'}
           </button>
         </div>
       </div>
 
-      {error && <div className="error-message">❌ {error}</div>}
+      {error && <div className="error-message">{error}</div>}
 
       {metrics && (
         <div className="metrics-grid">
           <div className={`metric-item ${getHumidityStatus(metrics.humidity)}`}>
-            <div className="metric-icon">💧</div>
+            <div className="metric-icon humidity-icon"><IoWaterOutline /></div>
             <div className="metric-content">
               <h3>Humedad</h3>
               <div className="metric-value">
@@ -78,7 +80,7 @@ export function MetricsCard() {
           </div>
 
           <div className={`metric-item ${getTemperatureStatus(metrics.temperature)}`}>
-            <div className="metric-icon">🌡️</div>
+            <div className="metric-icon temperature-icon"><TbTemperature /></div>
             <div className="metric-content">
               <h3>Temperatura</h3>
               <div className="metric-value">
@@ -98,7 +100,7 @@ export function MetricsCard() {
       {showCharts && (
         <div className="charts-container">
           <div className="chart-section">
-            <h3 className="chart-title">📈 Histórico de Temperatura</h3>
+            <h3 className="chart-title">Histórico de Temperatura</h3>
             <div className="chart-wrapper">
               <iframe
                 src={`https://thingspeak.com/channels/${channelId}/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=Temperatura&type=line&xaxis=Fecha&yaxis=Grados+C`}
@@ -109,7 +111,7 @@ export function MetricsCard() {
           </div>
 
           <div className="chart-section">
-            <h3 className="chart-title">💧 Histórico de Humedad</h3>
+            <h3 className="chart-title">Histórico de Humedad</h3>
             <div className="chart-wrapper">
               <iframe
                 src={`https://thingspeak.com/channels/${channelId}/charts/2?bgcolor=%23ffffff&color=%233b82f6&dynamic=true&results=60&title=Humedad&type=line&xaxis=Fecha&yaxis=Porcentaje+%25`}

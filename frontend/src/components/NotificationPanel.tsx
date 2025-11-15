@@ -46,7 +46,7 @@ export function NotificationPanel() {
 
   return (
     <div className="notification-panel">
-      <h2>📱 Notificaciones WhatsApp</h2>
+      <h2>Notificaciones WhatsApp</h2>
 
       <div className="notification-section">
         <h3>Verificación Automática</h3>
@@ -56,7 +56,7 @@ export function NotificationPanel() {
           disabled={loading}
           className="btn-primary"
         >
-          {loading ? '⏳ Verificando...' : '🔍 Verificar y Notificar'}
+          {loading ? 'Verificando...' : 'Verificar y Notificar'}
         </button>
       </div>
 
@@ -91,13 +91,13 @@ export function NotificationPanel() {
         </form>
       </div> */}
 
-      {error && <div className="error-message">❌ {error}</div>}
+      {error && <div className="error-message">{error}</div>}
 
       {result && (
         <div className={`result-message ${result.notified ? 'success' : 'info'}`}>
           {result.notified ? (
             <>
-              <strong>✅ Notificación enviada correctamente</strong>
+              <strong>Notificación enviada correctamente</strong>
               {result.metrics && (
                 <p>
                   Humedad: {result.metrics.humidity}% |
@@ -107,7 +107,7 @@ export function NotificationPanel() {
             </>
           ) : (
             <>
-              <strong>ℹ️ No se envió notificación</strong>
+              <strong>No se envió notificación</strong>
               {result.metrics && (
                 <p>
                   Humedad: {result.metrics.humidity}% |
