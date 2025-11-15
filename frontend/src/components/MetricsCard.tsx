@@ -7,7 +7,9 @@ export function MetricsCard() {
   const [metrics, setMetrics] = useState<Metrics | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [autoRefresh, setAutoRefresh] = useState(false);
+  const [showCharts, setShowCharts] = useState(true);
+
+  const channelId = import.meta.env.VITE_THINGSPEAK_CHANNEL_ID || '3165540';
 
   const fetchMetrics = async () => {
     setLoading(true);
@@ -25,13 +27,6 @@ export function MetricsCard() {
   useEffect(() => {
     fetchMetrics();
   }, []);
-
-  useEffect(() => {
-    if (autoRefresh) {
-      const interval = setInterval(fetchMetrics, 15000); // Cada 15 segundos
-      return () => clearInterval(interval);
-    }
-  }, [autoRefresh]);
 
   const getHumidityStatus = (humidity: number | null) => {
     if (humidity === null) return 'unknown';
@@ -55,17 +50,15 @@ export function MetricsCard() {
     <div className="metrics-card">
       <div className="metrics-header">
         <h2>📊 Métricas Actuales</h2>
-        <div className="controls">
-          <label className="auto-refresh">
-            <input
-              type="checkbox"
-              checked={autoRefresh}
-              onChange={(e) => setAutoRefresh(e.target.checked)}
-            />
-            Auto-actualizar
-          </label>
-          <button onClick={fetchMetrics} disabled={loading}>
-            {loading ? '⏳' : '🔄'} Actualizar
+        <div className="header-controls">
+          <button 
+            onClick={() => setShowCharts(!showCharts)} 
+            className="toggle-charts-button"
+          >
+            {showCharts ? '📈 Ocultar Gráficos' : '📊 Mostrar Gráficos'}
+          </button>
+          <button onClick={fetchMetrics} disabled={loading} className="refresh-button">
+            {loading ? '⏳ Actualizando...' : '🔄 Actualizar Datos'}
           </button>
         </div>
       </div>
@@ -99,6 +92,32 @@ export function MetricsCard() {
       {metrics?.created_at && (
         <div className="last-update">
           Última actualización: {new Date(metrics.created_at).toLocaleString('es-ES')}
+        </div>
+      )}
+
+      {showCharts && (
+        <div className="charts-container">
+          <div className="chart-section">
+            <h3 className="chart-title">📈 Histórico de Temperatura</h3>
+            <div className="chart-wrapper">
+              <iframe
+                src={`https://thingspeak.com/channels/${channelId}/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=Temperatura&type=line&xaxis=Fecha&yaxis=Grados+C`}
+                className="thingspeak-chart"
+                title="Gráfico de Temperatura"
+              />
+            </div>
+          </div>
+
+          <div className="chart-section">
+            <h3 className="chart-title">💧 Histórico de Humedad</h3>
+            <div className="chart-wrapper">
+              <iframe
+                src={`https://thingspeak.com/channels/${channelId}/charts/2?bgcolor=%23ffffff&color=%233b82f6&dynamic=true&results=60&title=Humedad&type=line&xaxis=Fecha&yaxis=Porcentaje+%25`}
+                className="thingspeak-chart"
+                title="Gráfico de Humedad"
+              />
+            </div>
+          </div>
         </div>
       )}
     </div>
