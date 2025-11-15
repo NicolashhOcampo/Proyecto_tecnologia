@@ -47,12 +47,12 @@ export function NotificationPanel() {
   return (
     <div className="notification-panel">
       <h2>📱 Notificaciones WhatsApp</h2>
-      
+
       <div className="notification-section">
         <h3>Verificación Automática</h3>
         <p>Verifica las métricas actuales y envía notificación si hay valores críticos</p>
-        <button 
-          onClick={handleCheckAndNotify} 
+        <button
+          onClick={handleCheckAndNotify}
           disabled={loading}
           className="btn-primary"
         >
@@ -98,17 +98,19 @@ export function NotificationPanel() {
           {result.notified ? (
             <>
               <strong>✅ Notificación enviada correctamente</strong>
-              {result.twilio_sid && <p>ID: {result.twilio_sid}</p>}
+              {result.metrics && (
+                <p>
+                  Humedad: {result.metrics.humidity}% |
+                  Temperatura: {result.metrics.temperature}°C
+                </p>
+              )}
             </>
           ) : (
             <>
               <strong>ℹ️ No se envió notificación</strong>
-              {result.messages && result.messages.length > 0 && (
-                <p>{result.messages.join(' | ')}</p>
-              )}
               {result.metrics && (
                 <p>
-                  Humedad: {result.metrics.humidity}% | 
+                  Humedad: {result.metrics.humidity}% |
                   Temperatura: {result.metrics.temperature}°C
                 </p>
               )}
