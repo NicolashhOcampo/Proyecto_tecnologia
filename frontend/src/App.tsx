@@ -3,6 +3,7 @@ import { NotificationPanel } from './components/NotificationPanel'
 import { DataSender } from './components/DataSender'
 import { MetricsCard } from './components/MetricsCard'
 import { Welcome } from './components/Welcome'
+import logo from './assets/logo.png'
 import './App.css'
 
 function App() {
@@ -21,7 +22,9 @@ function App() {
       <header className="app-header">
         <div className="header-content">
           <div className="logo-section">
-            <div className="logo-icon">🌡️</div>
+            <div className="logo-icon">
+              <img src={logo} alt="Logo" className="logo-image" />
+            </div>
             <div className="header-text">
               <h1>Monitor de Temperatura y Humedad</h1>
               <p className="subtitle">Sistema de monitoreo IoT con ThingSpeak y notificaciones WhatsApp</p>

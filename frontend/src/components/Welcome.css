@@ -338,6 +338,10 @@
 .feature-icon {
   font-size: 2rem;
   animation: iconBounce 2s ease-in-out infinite;
+  color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .feature-item:nth-child(1) .feature-icon {

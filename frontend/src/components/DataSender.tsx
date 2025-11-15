@@ -45,7 +45,7 @@ export function DataSender() {
         formattedResponse = response.thingspeak_response;
       }
       
-      setResult(`✅ Datos enviados correctamente\n\nRespuesta de ThingSpeak:\n${formattedResponse}`);
+      setResult(`Datos enviados correctamente\n\nRespuesta de ThingSpeak:\n${formattedResponse}`);
       setTemperature('');
       setHumidity('');
     } catch (err) {
@@ -57,7 +57,7 @@ export function DataSender() {
 
   return (
     <div className="data-sender">
-      <h2>📤 Enviar Datos a ThingSpeak</h2>
+      <h2>Enviar Datos a ThingSpeak</h2>
       <p className="description">
         Envía manualmente valores de temperatura y humedad a ThingSpeak
       </p>
@@ -65,7 +65,7 @@ export function DataSender() {
       <form onSubmit={handleSubmit}>
         <div className="form-row">
           <div className="form-group">
-            <label htmlFor="temperature">🌡️ Temperatura (°C)</label>
+            <label htmlFor="temperature">Temperatura (°C)</label>
             <input
               id="temperature"
               type="number"
@@ -79,7 +79,7 @@ export function DataSender() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="humidity">💧 Humedad (%)</label>
+            <label htmlFor="humidity">Humedad (%)</label>
             <input
               id="humidity"
               type="number"
@@ -96,11 +96,11 @@ export function DataSender() {
         </div>
 
         <button type="submit" disabled={loading} className="btn-submit">
-          {loading ? '⏳ Enviando...' : '🚀 Enviar a ThingSpeak'}
+          {loading ? 'Enviando...' : 'Enviar a ThingSpeak'}
         </button>
       </form>
 
-      {error && <div className="error-message">❌ {error}</div>}
+      {error && <div className="error-message">{error}</div>}
       {result && <div className="success-message">{result}</div>}
     </div>
   );

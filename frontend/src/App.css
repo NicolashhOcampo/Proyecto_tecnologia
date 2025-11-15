@@ -99,6 +99,12 @@
   animation: float 3s ease-in-out infinite;
 }
 
+.logo-image {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-5px); }
