@@ -60,11 +60,7 @@ function App() {
 
       <footer className="app-footer">
         <div className="footer-content">
-          <div className="footer-divider"></div>
-          <p>Proyecto Tecnología para la Automatización © 2025</p>
-          <p style={{ fontSize: '0.8125rem', opacity: 0.85 }}>
-            Sistema IoT de Monitoreo de Temperatura y Humedad
-          </p>
+          <p>Proyecto Tecnología para la Automatización 2025</p>
         </div>
       </footer>
     </div>

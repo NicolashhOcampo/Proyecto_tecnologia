@@ -205,18 +205,6 @@
   z-index: 10;
 }
 
-.app-footer::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.03) 50%, transparent 70%);
-  animation: shimmer 3s ease-in-out infinite;
-  pointer-events: none;
-}
-
 @keyframes shimmer {
   0%, 100% { transform: translateX(-100%); }
   50% { transform: translateX(100%); }
@@ -241,14 +229,6 @@
   letter-spacing: 0.3px;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   line-height: 1.6;
-}
-
-.footer-divider {
-  width: 60px;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.4);
-  border-radius: 2px;
-  margin: var(--spacing-xs) 0;
 }
 
 .footer-link {

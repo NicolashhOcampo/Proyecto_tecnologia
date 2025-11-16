@@ -249,7 +249,8 @@ def check_and_notify():
     alarm, msgs = check_critical(data["humidity"], data["temperature"])
     phone = os.getenv("DEFAULT_NOTIFY_PHONE")
     if alarm and phone:
-        text = f"{'\n'.join(msgs)}\nHumedad: {data['humidity']}%\nTemperatura: {data['temperature']} C\n{data.get('created_at')}"
+        msgs_text = '\n'.join(msgs)
+        text = f"{msgs_text}\nHumedad: {data['humidity']}%\nTemperatura: {data['temperature']}°C\n{data.get('created_at')}"
         try:
             res = send_whatsapp(phone, text)
         except Exception as e:
