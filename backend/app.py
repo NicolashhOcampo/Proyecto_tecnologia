@@ -11,6 +11,8 @@ from requests.auth import HTTPBasicAuth
 from twilio.rest import Client
 from twilio.twiml.messaging_response import MessagingResponse, Message
 
+
+
 load_dotenv()
 
 app = FastAPI(title="Simple ThingSpeak -> WhatsApp Notifier")
