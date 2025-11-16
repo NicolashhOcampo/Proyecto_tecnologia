@@ -351,7 +351,7 @@ async def whatsapp_webhook(request: Request):
                 response_msg = (
                     f"Métricas actuales:\n"
                     f"Humedad: {data['humidity']}%\n"
-                    f"Temperatura: {data['temperature']}C\n"
+                    f"Temperatura: {data['temperature']}°C\n"
                     f"{data.get('created_at')}"
                 )
 
