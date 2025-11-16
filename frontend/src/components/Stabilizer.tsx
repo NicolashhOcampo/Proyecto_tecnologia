@@ -48,16 +48,6 @@ export const Stabilizer: React.FC = () => {
     fetchMetrics();
   }, []);
 
-  // Auto-refresh cada 5 segundos cuando no está estabilizando
-  useEffect(() => {
-    if (stabilizing) return;
-
-    const interval = setInterval(() => {
-      fetchMetrics();
-    }, 5000); // Actualiza cada 5 segundos
-
-    return () => clearInterval(interval);
-  }, [stabilizing]);
 
   const fetchMetrics = async () => {
     try {
@@ -115,17 +105,17 @@ export const Stabilizer: React.FC = () => {
 
   const isCritical = (temp: number | null, hum: number | null): boolean => {
     if (temp === null || hum === null) return false;
-    
+
     // Umbrales críticos (mismos del backend)
     const HUM_MUY_BAJA = 20;
     const HUM_ALTA = 80;
     const TEMP_MUY_BAJA = 10;
     const TEMP_ALTA = 30;
-    
+
     return (
-      temp < TEMP_MUY_BAJA || 
-      temp > TEMP_ALTA || 
-      hum < HUM_MUY_BAJA || 
+      temp < TEMP_MUY_BAJA ||
+      temp > TEMP_ALTA ||
+      hum < HUM_MUY_BAJA ||
       hum > HUM_ALTA
     );
   };
@@ -176,10 +166,10 @@ export const Stabilizer: React.FC = () => {
               </div>
             </div>
             {critical && (
-              <div style={{ 
-                marginTop: 'var(--spacing-md)', 
-                textAlign: 'center', 
-                fontSize: '1rem', 
+              <div style={{
+                marginTop: 'var(--spacing-md)',
+                textAlign: 'center',
+                fontSize: '1rem',
                 fontWeight: 600,
                 color: 'var(--color-danger)',
                 padding: 'var(--spacing-sm)',
