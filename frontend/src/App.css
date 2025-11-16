@@ -193,33 +193,76 @@
 }
 
 .app-footer {
-  background: rgba(255, 255, 255, 0.1);
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.95) 0%, rgba(118, 75, 162, 0.95) 100%);
   color: var(--text-white);
   text-align: center;
-  padding: var(--spacing-xl);
+  padding: var(--spacing-2xl) var(--spacing-xl);
   margin-top: auto;
   backdrop-filter: blur(10px);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 3px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 10;
+}
+
+.app-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.03) 50%, transparent 70%);
+  animation: shimmer 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes shimmer {
+  0%, 100% { transform: translateX(-100%); }
+  50% { transform: translateX(100%); }
 }
 
 .footer-content {
   max-width: 1400px;
   margin: 0 auto;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: var(--spacing-xl);
-  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  position: relative;
+  z-index: 1;
 }
 
 .footer-content p {
   margin: 0;
-  font-size: 0.875rem;
-  opacity: 0.95;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  line-height: 1.6;
+}
+
+.footer-divider {
+  width: 60px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 2px;
+  margin: var(--spacing-xs) 0;
 }
 
 .footer-link {
-  opacity: 0.8;
+  color: var(--text-white);
+  text-decoration: none;
+  opacity: 0.9;
+  transition: all var(--transition-base);
+  font-weight: 600;
+}
+
+.footer-link:hover {
+  opacity: 1;
+  transform: translateY(-1px);
+  text-shadow: 0 2px 8px rgba(255, 255, 255, 0.3);
 }
 
 @media (max-width: 767px) {
@@ -268,7 +311,10 @@
   }
 
   .app-footer {
-    padding: var(--spacing-md);
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+
+  .footer-content p {
     font-size: 0.8125rem;
   }
 }

@@ -136,7 +136,14 @@ export const Stabilizer: React.FC = () => {
     <div className="stabilizer-container">
       <div className="stabilizer-header">
         <div className="stabilizer-header-content">
-          <h2>🎯 Estabilizador Automático</h2>
+          <h2>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ verticalAlign: 'middle', marginRight: '0.5rem' }}>
+              <circle cx="12" cy="12" r="10"></circle>
+              <circle cx="12" cy="12" r="6"></circle>
+              <circle cx="12" cy="12" r="2"></circle>
+            </svg>
+            Estabilizador Automático
+          </h2>
           <p>Normaliza temperatura y humedad en valores críticos</p>
         </div>
         <button
@@ -144,7 +151,18 @@ export const Stabilizer: React.FC = () => {
           onClick={fetchMetrics}
           disabled={loading || stabilizing}
         >
-          {loading ? 'Cargando...' : '🔄 Actualizar Datos'}
+          {loading ? (
+            'Cargando...'
+          ) : (
+            <>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ verticalAlign: 'middle', marginRight: '0.5rem' }}>
+                <polyline points="23 4 23 10 17 10"></polyline>
+                <polyline points="1 20 1 14 7 14"></polyline>
+                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+              </svg>
+              Actualizar Datos
+            </>
+          )}
         </button>
       </div>
 
@@ -158,7 +176,14 @@ export const Stabilizer: React.FC = () => {
           </div>
         ) : (
           <div className="current-values">
-            <h3>📊 Valores Actuales</h3>
+            <h3>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ verticalAlign: 'middle', marginRight: '0.5rem' }}>
+                <line x1="18" y1="20" x2="18" y2="10"></line>
+                <line x1="12" y1="20" x2="12" y2="4"></line>
+                <line x1="6" y1="20" x2="6" y2="14"></line>
+              </svg>
+              Valores Actuales
+            </h3>
             <div className="values-grid">
               <div className={`value-item ${critical && metrics.temperature !== null && (metrics.temperature < 10 || metrics.temperature > 30) ? 'value-critical' : ''}`}>
                 <div className="label">Temperatura</div>
@@ -185,9 +210,18 @@ export const Stabilizer: React.FC = () => {
                 padding: 'var(--spacing-sm)',
                 background: 'rgba(239, 68, 68, 0.1)',
                 borderRadius: 'var(--radius-sm)',
-                border: '1px solid rgba(239, 68, 68, 0.2)'
+                border: '1px solid rgba(239, 68, 68, 0.2)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '0.5rem'
               }}>
-                ⚠️ Valores en rango crítico
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                  <line x1="12" y1="9" x2="12" y2="13"></line>
+                  <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                Valores en rango crítico
               </div>
             )}
           </div>
@@ -215,7 +249,14 @@ export const Stabilizer: React.FC = () => {
 
         {error && (
           <div className="error-message">
-            <h3>❌ Error</h3>
+            <h3 style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="15" y1="9" x2="9" y2="15"></line>
+                <line x1="9" y1="9" x2="15" y2="15"></line>
+              </svg>
+              Error
+            </h3>
             <p>{error}</p>
           </div>
         )}
@@ -224,13 +265,24 @@ export const Stabilizer: React.FC = () => {
           <>
             {!stabilizationData.stabilization_needed ? (
               <div className="no-stabilization-needed">
-                <h3>✅ Todo Está Bien</h3>
+                <h3 style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                  </svg>
+                  Todo Está Bien
+                </h3>
                 <p>{stabilizationData.message || 'Los valores están dentro de rangos aceptables'}</p>
               </div>
             ) : (
               <>
                 <div className="completion-message">
-                  <h3>✅ Estabilización Completada</h3>
+                  <h3 style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    Estabilización Completada
+                  </h3>
                   <p style={{ color: '#166534' }}>
                     Se realizaron {stabilizationData.total_steps} actualizaciones para normalizar los valores.
                   </p>
@@ -238,13 +290,29 @@ export const Stabilizer: React.FC = () => {
 
                 {stabilizationData.steps && stabilizationData.steps.length > 0 && (
                   <div className="stabilization-progress">
-                    <h3>📈 Historial de Ajustes</h3>
+                    <h3>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ verticalAlign: 'middle', marginRight: '0.5rem' }}>
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                      </svg>
+                      Historial de Ajustes
+                    </h3>
                     <div className="progress-info">
                       {stabilizationData.steps.map((step) => (
                         <div key={step.step} className="progress-item">
                           <span className="step">Paso {step.step}</span>
-                          <span className="values">
-                            🌡️ {step.temperature}°C | 💧 {step.humidity}%
+                          <span className="values" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                            <span style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"></path>
+                              </svg>
+                              {step.temperature}°C
+                            </span>
+                            <span style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+                              </svg>
+                              {step.humidity}%
+                            </span>
                           </span>
                         </div>
                       ))}
