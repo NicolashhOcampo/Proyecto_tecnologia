@@ -32,7 +32,6 @@ class Settings(BaseModel):
     temp_baja: int = 15
     temp_optima: int = 25
     temp_alta: int = 30
-    phone: Optional[str] = None  # Ej: +34123456789
 
 settings = Settings()
 
@@ -105,13 +104,19 @@ def check_critical(humidity: Optional[int], temperature: Optional[int]) -> Tuple
     if humidity is None or temperature is None:
         return False, []
     msgs: List[str] = []
-    low = (humidity < settings.hum_muy_baja) or (temperature < settings.temp_muy_baja)
-    high = (humidity > settings.hum_alta) or (temperature > settings.temp_alta)
-    if low:
-        msgs.append("CRÍTICO - niveles MUY BAJOS")
-    if high:
-        msgs.append("CRÍTICO - niveles MUY ALTOS")
-    return (low or high), msgs
+    low_humidity = (humidity < settings.hum_muy_baja) 
+    low_temperature = (temperature < settings.temp_muy_baja)
+    high_humidity = (humidity > settings.hum_alta)
+    high_temperature = (temperature > settings.temp_alta)
+    if low_humidity:
+        msgs.append("CRÍTICO - niveles MUY BAJOS de humedad")
+    if high_humidity:
+        msgs.append("CRÍTICO - niveles MUY ALTOS de humedad")
+    if low_temperature:
+        msgs.append("CRÍTICO - niveles MUY BAJOS de temperatura")
+    if high_temperature:
+        msgs.append("CRÍTICO - niveles MUY ALTOS de temperatura")
+    return (low_humidity or low_temperature or high_humidity or high_temperature), msgs
 
 @app.get("/", response_model=dict)
 def root():
@@ -137,9 +142,9 @@ def check_and_notify():
     if not data:
         raise HTTPException(status_code=404, detail="No hay datos en ThingSpeak")
     alarm, msgs = check_critical(data["humidity"], data["temperature"])
-    phone = settings.phone or os.getenv("DEFAULT_NOTIFY_PHONE")
+    phone = os.getenv("DEFAULT_NOTIFY_PHONE")
     if alarm and phone:
-        text = f"{' | '.join(msgs)}\nH:{data['humidity']}%  T:{data['temperature']}C\n{data.get('created_at')}"
+        text = f"{'\n'.join(msgs)}\nHumedad: {data['humidity']}%\nTemperatura: {data['temperature']} C\n{data.get('created_at')}"
         try:
             res = send_whatsapp(phone, text)
         except Exception as e:
